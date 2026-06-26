@@ -28,13 +28,11 @@ type LogEntry struct {
 }
 
 type Config struct {
-	SchemaVersion int               `json:"schema_version"`
-	Pomodoro      domain.Pomodoro   `json:"pomodoro"`
-	Economy       domain.Economy    `json:"economy"`
-	Games         domain.Games      `json:"games"`
-	Safeguards    domain.Safeguards `json:"safeguards"`
-	Behavior      domain.Behavior   `json:"behavior"`
-	DayResetHour  int               `json:"day_reset_hour"` // 0..23, local hour when the day rolls over
+	SchemaVersion int             `json:"schema_version"`
+	Pomodoro      domain.Pomodoro `json:"pomodoro"`
+	Economy       domain.Economy  `json:"economy"`
+	Games         domain.Games    `json:"games"`
+	Behavior      domain.Behavior `json:"behavior"`
 }
 
 // DefaultState returns a fresh State for a first run (no file yet).
@@ -59,31 +57,19 @@ func DefaultConfig() *Config {
 			CycleLength:       4,
 		},
 		Economy: domain.Economy{
-			BaseRatio:             0.12,
-			FairRatio:             0.20,
-			MaxRatio:              0.40,
-			DailySpendMultiplier:  1.80,
 			BankCapMinutes:        120,
 			InterruptKeepFraction: 0.0,
 		},
 		Games: domain.Games{
 			RTP:              0.90,
-			TargetFraction:   0.44,
-			BaseStakeMinutes: 30,
+			BaseStakeMinutes: 5,
 			MinesCount:       3,
 			RouletteType:     "european",
 			ProvablyFair:     false,
-		},
-		Safeguards: domain.Safeguards{
-			DailyPlayCap:        20,
-			CooldownSeconds:     1,
-			LossMeansWait:       false,
-			MaxDailyLossMinutes: 0,
 		},
 		Behavior: domain.Behavior{
 			AfterFocus:       "ask",
 			ConfirmEarlyStop: true,
 		},
-		DayResetHour: 0,
 	}
 }
