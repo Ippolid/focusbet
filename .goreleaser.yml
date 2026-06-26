@@ -1,0 +1,47 @@
+# GoReleaser config — builds cross-platform binaries on a version tag.
+# Cut a release with:  git tag v0.1.0 && git push origin v0.1.0
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: focusbet
+    main: .
+    binary: focusbet
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - id: focusbet
+    formats: [tar.gz]
+    # Use a zip for Windows so it unpacks natively.
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- .Arch }}
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"

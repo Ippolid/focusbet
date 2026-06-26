@@ -5,9 +5,6 @@ type Games struct {
 	// RTP: target return-to-player (<1 so the bank trends down, pulling you back
 	// to work). 0.90 = player loses ~10% per stake on average.
 	RTP float64 `json:"rtp"`
-	// TargetFraction: where the average game outcome should land inside the
-	// [base, max] rest zone. ~0.44 = average player gets roughly the fair break.
-	TargetFraction float64 `json:"target_fraction"`
 
 	// BaseStakeMinutes: default wager size per play, in minutes of bank.
 	BaseStakeMinutes int `json:"base_stake_minutes"`
